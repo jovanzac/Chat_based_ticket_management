@@ -254,4 +254,5 @@ if __name__ == "__main__" :
     response = chat_query_engine.chat(query_str)
     
     print("Response after applying memory...")
-    print(response)
+    text = response.response
+    print(type(text), text)

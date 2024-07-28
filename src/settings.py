@@ -16,7 +16,7 @@ class Config :
         os.environ["GROQ_API_KEY"] = os.environ.get("GROQ_API_KEY")
         
         self.base_llm = Groq(
-            model="gemma2-9b-it",
+            model="llama3-70b-8192",
             temperature=1,
             max_tokens=1024,
         )
