@@ -16,9 +16,10 @@ from llama_index.core import SimpleDirectoryReader
 
 from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core import ChatPromptTemplate
+from llama_index.core.chat_engine.types import ChatMode
 
 
-from settings import Config
+from src.settings import Config
 from llama_index.core.query_engine import RetrieverQueryEngine
 
 
@@ -170,10 +171,10 @@ if __name__ == "__main__" :
     ingestion = DataIngestion(config, redis)
     
     print("Getting documents and nodes...")
-    documents = ingestion.create_documents_from_files(loc="./data")
-    print(f"len(docs): {len(documents)}")
-    nodes = ingestion.create_nodes(documents)
-    print(f"len(nodes): {len(nodes)}")
+    # documents = ingestion.create_documents_from_files(loc="./data")
+    # print(f"len(docs): {len(documents)}")
+    # nodes = ingestion.create_nodes(documents)
+    # print(f"len(nodes): {len(nodes)}")
     storage_context = ingestion.storage_context()
     print("Setting up and starting the ingestion pipeline...")
     # ingestion.ingestion_pipeline(nodes)
@@ -231,11 +232,11 @@ if __name__ == "__main__" :
         retriever=retriever,
         text_qa_template=text_qa_template,
         llm=config.base_llm,
-        memory=memory
     )
     
     chat_query_engine = index.as_chat_engine(
-        chat_mode="context",
+        # chat_mode="context",
+        chat_mode=ChatMode.CONTEXT,
         context_prompt=qa_prompt_str,
         system_prompt="""Always answer the question, even if the context isn't helpful.
                 You are a support bot to help out users in a ticket management system.
